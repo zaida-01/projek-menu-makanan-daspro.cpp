@@ -15,11 +15,12 @@ using namespace std;
     //kamsu memanggil fungsi dan prosedur 
     int inputmenu(MENU M[], int n);
     int hapusmenu(MENU M[], int n);
+    int kasir(MENU M[], int n);
     void editmenu(MENU M[], int n);
     void TampilMenu();
 
     //kamus yang nampung fungsi 
-    int daftarinput,hapusinput;
+    int daftarinput,hapusinput,totalkasir;
 
 
 
@@ -33,14 +34,14 @@ int main()
 
 
 do{
-
+cout <<"\n=====DAFTAR MENU=====\n";
 TampilMenu();    
 
 cout<<"\n======MENU======\n";   //MENAMPILKAN MENU OPTION 
 cout<<"1. input menu baru \n";
 cout<<"2. edit daftar menu\n";
 cout<<"3. hapus menu\n";
-cout<<"4. \n";
+cout<<"4. kasir\n";
 cout<<"0. keluar\n";
 cout <<"Pilihan :";
 cin >>pilihan; 
@@ -68,7 +69,10 @@ hapusinput=hapusmenu(menu,tampilmenu);
 cout <<hapusinput;
 }
 else if(pilihan == 4)
-{}
+{
+ 
+kasir(menu, tampilmenu);   
+}
 
 
 
@@ -100,7 +104,7 @@ void editmenu(MENU M[], int n) //mengedit salah satu daftar menu dengan memasuan
     cout <<"Masukan data yang mau di edit (kode) :";
         cin  >> cari;
 
-    ketemu=false; // program belum menemukan yang mnau di edit 
+    ketemu=false; // program belum menemukan yang mau di edit 
 
         int i=0;
         do
@@ -109,11 +113,11 @@ void editmenu(MENU M[], int n) //mengedit salah satu daftar menu dengan memasuan
             {
             cout <<"Nama :"<<M[i].nama <<"\n" <<"Harga :" <<M[i].harga <<"\n";
 
-                    cout <<"Silakan masukan Nama baru :";
+                    cout <<"\nSilakan masukan Nama baru :";
                     cin.ignore();
                     getline(cin, M[i].nama);      //edit nama
 
-                    cout <<"Silakan Masukan harga baru :" ; // edit harga harga
+                    cout <<"\nSilakan Masukan harga baru :" ; // edit harga harga
                         cin  >>M[i].harga;
 
             ketemu = true; // program berhasil 
@@ -133,17 +137,20 @@ void TampilMenu(){
             {
              cout <<"\n\n\n\n\nDAFTAR MENU MASIH KOSONG\n\n\n\n\n";
             }  //cek bats menu masih kosong atau tidak
+        else if(tampilmenu >= 1)
+            {
+            
+            int s=0;
+            do{
+            
+            cout <<left <<setw(5)  <<menu[s].kode
+                <<left  <<setw(40) <<menu[s].nama
+                <<right <<setw(3)  <<"Rp"
+                <<left  <<setw(10) <<menu[s].harga<<"\n"; 
+            s=s+1;
+            }while(s < tampilmenu);
 
-
-    int s=0;
-    do{
-    cout <<"=====DAFTAR MENU=====\n";
-    cout <<right <<setw(5)  <<menu[s].kode
-         <<left  <<setw(40) <<menu[s].nama
-         <<right <<setw(3)  <<"Rp"
-         <<left  <<setw(10) <<menu[s].harga; 
-    s=s+1;
-    }while(s < tampilmenu);
+            }
 
 }
 
@@ -172,7 +179,7 @@ int inputmenu(MENU M[], int n)  // input menu baru
 
             cout <<"Masukan harga :" ; // masukan harga
                 cin  >>M[tampilmenu].harga;
-
+            cout<<"\n";
             tampilmenu=tampilmenu +1;  // nominal tampilmenu bertambah
         G=G+1;
         }while(G < n ); 
@@ -203,22 +210,60 @@ int hapusmenu(MENU M[], int n) // menghapus salah satu menu di array dan memajuk
     if(hapus ==-1)
       { cout <<"\nData tidak di temukan\n"; return n; } //jika data yang di cari tidak di temukan 
 
-    int J=0;
+    int J=hapus;
     do
     {
         M[J]=M[J+1];  // menggeser data array ke sebelahnya 
+     
     J=J+1;    
     }while(J < n-1);
 
     n=n-1; // jumlah array berkurang 
+    tampilmenu=n;
     return n;
 }
 
+    int carikode(MENU M[],int n, string kode){
+    int p=0;
+    do{
 
+    if(M[p].kode == kode){
+    return p;}
 
+    p=p+1;    
+    }while(p < n);
 
+    return -1;
+    }
 
+    int kasir(MENU M[], int n)
+    {
+    //kamus
+    string kode;
+    int nominal,total=0;
 
+    //deskripsi
+    int k=0;
+    do{
+    cout <<"\nMasukan kode : (0 untuk akhiri pesanan)";
+    cin >> kode;
 
+    if(kode =="0")
+        {break;}
 
+    nominal=carikode(M,n,kode);
 
+    if(nominal != -1)
+        {total += menu[nominal].harga;
+
+        cout <<"Tambah pesanan :"<<menu[nominal].nama
+            <<"\nharga :"<<menu[nominal].harga;
+        }
+    else
+    { cout <<"kode tidak ditemukan, pesan diabaikan";}
+
+    }while(true);
+
+    cout <<"Total pesanan : Rp."<<total;
+    return total;
+    }
