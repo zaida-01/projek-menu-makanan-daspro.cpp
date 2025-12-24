@@ -2,7 +2,7 @@
 #include<string>
 #include<iomanip>
 using namespace std;
-//kamus global
+//======================================kamus global
     //kamus biasa
     const int MAX=10;
     //kamus ADT dan strukture
@@ -16,13 +16,15 @@ using namespace std;
     int inputmenu(MENU M[], int n);
     int hapusmenu(MENU M[], int n);
     void editmenu(MENU M[], int n);
+    void TampilMenu();
+
     //kamus yang nampung fungsi 
-    int daftarinput;
+    int daftarinput,hapusinput;
 
 
 
 
-//deskrip utama
+//=======================================deskrip utama
 int main()
 { //kamus lokal
 
@@ -31,6 +33,9 @@ int main()
 
 
 do{
+
+TampilMenu();    
+
 cout<<"\n======MENU======\n";   //MENAMPILKAN MENU OPTION 
 cout<<"1. input menu baru \n";
 cout<<"2. edit daftar menu\n";
@@ -40,12 +45,28 @@ cout<<"0. keluar\n";
 cout <<"Pilihan :";
 cin >>pilihan; 
 
-if(pilihan == 1)
-{}
-else if(pilihan == 2)
-{}
-else if(pilihan == 3)
-{}
+if(pilihan == 1) //input
+{
+    in=0;
+    do{
+        cout <<"Mau berapa menu baru yang masuk (1~10)\n" ;
+        cin >> in;
+        cin.ignore();
+        }while(in <1 || in >10); //jumlah menu yang mau masuk 
+
+daftarinput=inputmenu(menu, in);
+cout << daftarinput;
+
+}
+else if(pilihan == 2)//edit
+{
+editmenu(menu, tampilmenu);
+}
+else if(pilihan == 3)// hapus
+{
+hapusinput=hapusmenu(menu,tampilmenu);
+cout <<hapusinput;
+}
 else if(pilihan == 4)
 {}
 
@@ -68,7 +89,7 @@ return 0;}
 
 
 
-//prosedur
+//=========================================prosedur
 void editmenu(MENU M[], int n) //mengedit salah satu daftar menu dengan memasuan kode makanan
 {
     //kamus lokal
@@ -100,7 +121,8 @@ void editmenu(MENU M[], int n) //mengedit salah satu daftar menu dengan memasuan
             }
         i=i+1;
         }while(i < n);
-        if(!ketemu){cout << "\ndata yang anda cari tidak ada\n";}
+
+            if(!ketemu){cout << "\ndata yang anda cari tidak ada\n";}
 }
 
 
@@ -108,28 +130,26 @@ void TampilMenu(){
 //kamus lokal
 //deskrip
         if(tampilmenu == 0)
-            { cout <<"\n\n\n\n\nDAFTAR MENU MASIH KOSONG\n\n\n\n\n";}  //cek bats menu masih kosong atau tidak
+            {
+             cout <<"\n\n\n\n\nDAFTAR MENU MASIH KOSONG\n\n\n\n\n";
+            }  //cek bats menu masih kosong atau tidak
 
 
     int s=0;
     do{
     cout <<"=====DAFTAR MENU=====\n";
-    cout <<right <<setw(5) <<menu[s].kode
-        <<left  <<setw(40)  <<menu[s].nama
-                <<setw()  <<menu[s].harga // mau pakai 10K (setw nanti 10) atau Rp 10.000(setw nanti 20 )
-
-    << <<setw() <<"" // nanti pakai buat penentuka pakai Rp atau K
-
-
-
-
+    cout <<right <<setw(5)  <<menu[s].kode
+         <<left  <<setw(40) <<menu[s].nama
+         <<right <<setw(3)  <<"Rp"
+         <<left  <<setw(10) <<menu[s].harga; 
+    s=s+1;
     }while(s < tampilmenu);
 
 }
 
 
 
-//fungsi 
+//===================================fungsi 
 
 int inputmenu(MENU M[], int n)  // input menu baru
 { //kamus lokal
@@ -183,11 +203,12 @@ int hapusmenu(MENU M[], int n) // menghapus salah satu menu di array dan memajuk
     if(hapus ==-1)
       { cout <<"\nData tidak di temukan\n"; return n; } //jika data yang di cari tidak di temukan 
 
+    int J=0;
     do
     {
-        M[i]=M[i+1];  // menggeser data array ke sebelahnya 
-    i=i+1;    
-    }while(i < n-1);
+        M[J]=M[J+1];  // menggeser data array ke sebelahnya 
+    J=J+1;    
+    }while(J < n-1);
 
     n=n-1; // jumlah array berkurang 
     return n;
@@ -195,13 +216,7 @@ int hapusmenu(MENU M[], int n) // menghapus salah satu menu di array dan memajuk
 
 
 
-// penting  nanti kita pakai di main 
-    int in=0;
-    do{
-        cout <<"Mau berapa menu baru yang masuk (1~10)\n" ;
-        cin >> in;
-        cin.ignore();
-        }while(in <1 || in >10); //jumlah menu yang mau masuk 
+
 
 
 
