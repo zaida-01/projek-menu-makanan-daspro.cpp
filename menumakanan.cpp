@@ -25,15 +25,37 @@ using namespace std;
 //deskrip utama
 int main()
 { //kamus lokal
-  int batas = MAX - tampilmenu;
-  int in;
 
-    
-
+  int in,pilihan;
+  //deskripsi
 
 
+do{
+cout<<"\n======MENU======\n";   //MENAMPILKAN MENU OPTION 
+cout<<"1. input menu baru \n";
+cout<<"2. edit daftar menu\n";
+cout<<"3. hapus menu\n";
+cout<<"4. \n";
+cout<<"0. keluar\n";
+cout <<"Pilihan :";
+cin >>pilihan; 
 
-        
+if(pilihan == 1)
+{}
+else if(pilihan == 2)
+{}
+else if(pilihan == 3)
+{}
+else if(pilihan == 4)
+{}
+
+
+
+
+}while(pilihan != 0);
+
+
+cout <<"\nPROGRAM TELAH SELESAI DI PAKAI\n" ;       
 return 0;}
 
 
@@ -47,7 +69,7 @@ return 0;}
 
 
 //prosedur
-void editmenu(MENU M[], int n)
+void editmenu(MENU M[], int n) //mengedit salah satu daftar menu dengan memasuan kode makanan
 {
     //kamus lokal
     string cari; 
@@ -59,73 +81,94 @@ void editmenu(MENU M[], int n)
 
     ketemu=false; // program belum menemukan yang mnau di edit 
 
-    int i=0;
-    do
-    {
-        if(M[i].kode == cari)
+        int i=0;
+        do
         {
-        cout <<"Nama :"<<M[i].nama <<"\n" <<"Harga :" <<M[i].harga <<"\n";
+            if(M[i].kode == cari)
+            {
+            cout <<"Nama :"<<M[i].nama <<"\n" <<"Harga :" <<M[i].harga <<"\n";
 
-                cout <<"Silakan masukan Nama baru :";
-                cin.ignore();
-                getline(cin, M[i].nama);      //edit nama
+                    cout <<"Silakan masukan Nama baru :";
+                    cin.ignore();
+                    getline(cin, M[i].nama);      //edit nama
 
-                cout <<"Silakan Masukan harga baru :" ; // edit harga harga
-                    cin  >>M[i].harga;
+                    cout <<"Silakan Masukan harga baru :" ; // edit harga harga
+                        cin  >>M[i].harga;
 
-        ketemu = true; // program berhasil 
-        break; // menghentikan loop setelah mendapat hasil atau if berjalan 
-        }
-    i=i+1;
-    }while(i < n);
-    if(!ketemu){cout << "\ndata yang anda cari tidak ada\n";}
+            ketemu = true; // program berhasil 
+            break; // menghentikan loop setelah mendapat hasil atau if berjalan 
+            }
+        i=i+1;
+        }while(i < n);
+        if(!ketemu){cout << "\ndata yang anda cari tidak ada\n";}
 }
 
 
+void TampilMenu(){
+//kamus lokal
+//deskrip
+        if(tampilmenu == 0)
+            { cout <<"\n\n\n\n\nDAFTAR MENU MASIH KOSONG\n\n\n\n\n";}  //cek bats menu masih kosong atau tidak
 
+
+    int s=0;
+    do{
+    cout <<"=====DAFTAR MENU=====\n";
+    cout <<right <<setw(5) <<menu[s].kode
+        <<left  <<setw(40)  <<menu[s].nama
+                <<setw()  <<menu[s].harga // mau pakai 10K (setw nanti 10) atau Rp 10.000(setw nanti 20 )
+
+    << <<setw() <<"" // nanti pakai buat penentuka pakai Rp atau K
+
+
+
+
+    }while(s < tampilmenu);
+
+}
 
 
 
 //fungsi 
 
-int inputmenu(MENU M[], int n)  // input menu 
+int inputmenu(MENU M[], int n)  // input menu baru
 { //kamus lokal
     int batas = MAX - tampilmenu; 
 
   //deskrip
-    if(batas <=0)  // cek batas menu 
+    if(batas <=0)                   // cek batas menu 
       {cout <<"Menu sudah penuh \n"; return 0 ;}
 
-    int G=0;
-    do
-    {
-        cout <<"Masukan Menu baru ke-"<<tampilmenu + 1<<"\n";
+        int G=0;
+        do
+        {
+            cout <<"Masukan Menu baru ke-"<<tampilmenu + 1<<"\n";
 
-        cout <<"Masukan nama kode  :" ; // masukan kode 
-            cin >> M[tampilmenu].kode;
-            cin.ignore();
-        cout <<"Masukan nama makanan :" ; // masukan nama makanan 
-            getline(cin, M[tampilmenu].nama);
+            cout <<"Masukan kode makanan :" ; // masukan kode 
+                cin >> M[tampilmenu].kode;
+                cin.ignore();
+            cout <<"Masukan nama makanan :" ; // masukan nama makanan 
+                getline(cin, M[tampilmenu].nama);
 
-        cout <<"Masukan harga :" ; // masukan harga
-            cin  >>M[tampilmenu].harga;
+            cout <<"Masukan harga :" ; // masukan harga
+                cin  >>M[tampilmenu].harga;
 
-        tampilmenu=tampilmenu +1;
-    G=G+1;
-    }while(G < n ); 
+            tampilmenu=tampilmenu +1;  // nominal tampilmenu bertambah
+        G=G+1;
+        }while(G < n ); 
     
     cout << "\n PENAMBAHAN MENU BERHASIL \n";
     return n;
 }
 
-int hapusmenu(MENU M[], int n) // menghapus salah satu menu di array 
+int hapusmenu(MENU M[], int n) // menghapus salah satu menu di array dan memajukan daftar menu bawahnya  
 {
     //kamus lokal
     string cari; 
     int hapus=-1;
 
     //deskripsi
-    cout <<"Masukan data yang mau di hapus (kode) :";
+    cout <<"Masukan data yang mau di hapus (kode) :";  //penginputan apa yang mau di cari
         cin  >> cari;
 
     int i=0;
@@ -152,13 +195,15 @@ int hapusmenu(MENU M[], int n) // menghapus salah satu menu di array
 
 
 
-
 // penting  nanti kita pakai di main 
+    int in=0;
     do{
         cout <<"Mau berapa menu baru yang masuk (1~10)\n" ;
         cin >> in;
         cin.ignore();
-        }while(in <1 || in >batas); //jumlah menu yang mau masuk 
+        }while(in <1 || in >10); //jumlah menu yang mau masuk 
+
+
 
 
 
