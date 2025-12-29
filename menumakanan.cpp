@@ -2,31 +2,31 @@
 #include<string>
 #include<iomanip>
 using namespace std;
-//======================================kamus global
+//======================================  kamus global  ============================
     //kamus biasa
-    const int MAX       =10;  // jumlah maksimal  menu
+    const int MAX       =20;  // jumlah maksimal  menu
     const int MAX_isi   =10;  // jumlah maksimal menu dalam paket 
     const int MAX_paket =10;  // jumlah maksimal paket di buat
 
     //kamus ADT dan strukture
     struct MENU{ string kode; 
                  string nama; 
-                 int harga;
+                 int harga  ;
                 };
-        MENU menu[MAX];
+        MENU menu[MAX]  ;
         int tampilmenu=0;
     
-    struct PAKET{ string kodepaket; //kode paketnya
-                  string namapaket; //nama paket
-                  int isi[MAX_isi]   ; // menu paket yang bisa masuk
-                  int jumlahpaket  ; //jumlah paket yang terdaftar
-                  int hargapaket  ; //harga untuk tiap paket
-                  int diskon ;
+    struct PAKET{ string kodepaket ; // kode paketnya
+                  string namapaket ; // nama paket
+                  int isi[MAX_isi] ; // menu paket yang bisa masuk
+                  int jumlahpaket  ; // jumlah paket yang terdaftar
+                  int hargapaket   ; // harga untuk tiap paket
+                  int diskon       ; // diskon
                 };
-    PAKET paket[MAX_paket];
-    int tampilpaket=0;
+    PAKET paket[MAX_paket]  ;
+    int tampilpaket=0       ;
 
-    //kamsu memanggil fungsi dan prosedur 
+    //kamus memanggil fungsi dan prosedur 
     int inputmenu(MENU M[], int n);
     int hapusmenu(MENU M[], int n);
     int kasir(MENU M[], int n);
@@ -46,69 +46,67 @@ using namespace std;
 
 //=======================================deskrip utama
 int main()
-{ //kamus lokal
+{ 
+ //kamus lokal
 
-  int in,pilihan;
-  //deskripsi
+    int in,pilihan;
+ //deskripsi
 
 
-do
-{
-            cout <<"\n=====DAFTAR MENU=====\n";
-                TampilMenu();    
+    do
+    {
+        cout <<"\n=====DAFTAR MENU=====\n";
+            TampilMenu();    
 
-            //MENAMPILKAN MENU OPTION 
-    cout<<"\n======MENU======\n";   
-    cout<<"1. input menu baru \n";
-    cout<<"2. edit daftar menu\n";
-    cout<<"3. hapus menu\n";
-    cout<<"4. kasir\n";
-    cout<<"5. input paket\n";
-    cout<<"6. Hapus paket\n";
-    cout<<"0. keluar\n";
-    cout <<"Pilihan :";
-        cin >>pilihan; 
+     //MENAMPILKAN MENU OPTION 
+        cout<<"\n======MENU======\n";   
+        cout<<"1. input menu baru \n";
+        cout<<"2. edit daftar menu\n";
+        cout<<"3. hapus menu\n";
+        cout<<"4. kasir\n";
+        cout<<"5. input paket\n";
+        cout<<"6. Hapus paket\n";
+        cout<<"0. keluar\n";
+        cout <<"Pilihan :";
+            cin >>pilihan; 
 
-        if(pilihan == 1) //input
-        {
+            if(pilihan == 1) //input menu
+            {
                 in=0;
-                do{
+                do
+                {
                     cout <<"Mau berapa menu baru yang masuk (1~10)\n" ;
                         cin >> in;
-                    }while(in <1 || in >10); //jumlah menu yang mau masuk 
 
-            daftarinput=inputmenu(menu, in);
-            cout << daftarinput;
+                }while(in <1 || in >10); //jumlah menu yang mau masuk 
 
-        }
-        else if(pilihan == 2)//edit
-        {
-            editmenu(menu, tampilmenu);
-        }
-        else if(pilihan == 3)// hapus
-        {
-            hapusinput=hapusmenu(menu,tampilmenu);
-                cout <<hapusinput;
-        }
-        else if(pilihan == 4)
-        { 
-            kasir(menu, tampilmenu);   
-        }
-        else if(pilihan == 5)
-        {
-            inputpaket(paket);
-        }
-        else if(pilihan == 6)
-        {
-            hapusmenupaket=hapuspaket(paket,tampilpaket);
-            cout<<hapusmenupaket;
-        }
+                daftarinput=inputmenu(menu, in);
+                cout << daftarinput;
 
-
-
-
-    }while(pilihan != 0);
-
+            }
+            else if(pilihan == 2) //edit menu 
+            {
+                editmenu(menu, tampilmenu);
+            }
+            else if(pilihan == 3)// hapus menu
+            {
+                hapusinput=hapusmenu(menu,tampilmenu);
+                    cout <<hapusinput;
+            }
+            else if(pilihan == 4) //kasir hitung harga
+            { 
+                kasir(menu, tampilmenu);   
+            }
+            else if(pilihan == 5) //buat paket dengan isi menu
+            {
+                inputpaket(paket);
+            }
+            else if(pilihan == 6) //hapsu paket
+            {
+                hapusmenupaket=hapuspaket(paket,tampilpaket);
+                cout<<hapusmenupaket;
+            }
+    }while(pilihan != 0); //mengakhiri program pilihan
 
     cout <<"\n\nPROGRAM TELAH SELESAI DI PAKAI\n\n" ;
     return 0;
@@ -127,15 +125,14 @@ do
 //=========================================prosedur=================================================
 void editmenu(MENU M[], int n) //mengedit salah satu daftar menu dengan memasuan kode makanan
     {
-        //kamus lokal
+      //kamus lokal
         string cari; 
         bool ketemu;
 
-        //deskripsi
+      //deskripsi
         if(n == 0){ cout <<"\n\n\n\n\nDAFTAR MENU MASIH KOSONG\n\n\n\n\n";
                     return;
                   }
-
 
         cout <<"Masukan data yang mau di edit (kode) :";
             cin  >> cari;
@@ -147,7 +144,7 @@ void editmenu(MENU M[], int n) //mengedit salah satu daftar menu dengan memasuan
             {
                 if(M[i].kode == cari)
                 {
-                cout <<"Nama :"<<M[i].nama <<"\n" <<"Harga :" <<M[i].harga <<"\n";
+                 cout <<"Nama :"<<M[i].nama <<"\n" <<"Harga :" <<M[i].harga <<"\n";
 
                         cout <<"\nSilakan masukan Nama baru :";
                         cin.ignore();
@@ -156,10 +153,10 @@ void editmenu(MENU M[], int n) //mengedit salah satu daftar menu dengan memasuan
                         cout <<"\nSilakan Masukan harga baru :" ; // edit harga harga
                             cin  >>M[i].harga;
 
-                ketemu = true; // program berhasil 
-                break; // menghentikan loop setelah mendapat hasil atau if berjalan 
+                 ketemu = true; // program berhasil 
+                 break; // menghentikan loop setelah mendapat hasil atau if berjalan 
                 }
-            i=i+1;
+             i=i+1;
             }while(i < n);
 
             if(!ketemu){cout << "\ndata yang anda cari tidak ada\n";}
@@ -168,29 +165,29 @@ void editmenu(MENU M[], int n) //mengedit salah satu daftar menu dengan memasuan
 
 void TampilMenu()
     {
-    //kamus lokal
-    //deskrip
+     //kamus lokal
+     //deskrip
             if(tampilmenu == 0)
                 {
                     cout <<"\n\n\n\n\nDAFTAR MENU MASIH KOSONG\n\n\n\n\n";
                 }  //cek bats menu masih kosong atau tidak
+
             else if(tampilmenu >= 1)
                     {
-                    cout << "\n===== DAFTAR MENU =====\n";
-                    cout <<left  <<setw(7)  <<"KODE"
-                         <<left  <<setw(40) <<"MAKANAN"
-                         <<left  <<setw(13) <<"HARGA";
-                    cout <<"\n"<< string(55, '-') << "\n";
-
+                     cout << "\n===== DAFTAR MENU =====\n";
+                     cout <<left  <<setw(7)  <<"KODE"
+                          <<left  <<setw(40) <<"MAKANAN"
+                          <<left  <<setw(13) <<"HARGA";
+                     cout <<"\n"<< string(55, '-') << "\n";
 
                         int s=0;
                         do
                         {
                             cout <<left <<setw(7)  <<menu[s].kode
                                 <<left  <<setw(40) <<menu[s].nama
-                                <<left <<setw(3)  <<"Rp"
+                                <<left  <<setw(3)  <<"Rp"
                                 <<left  <<setw(10) <<menu[s].harga<<"\n"; 
-                        s=s+1;
+                         s=s+1;
                         }while(s < tampilmenu);
                     }
                     
@@ -201,31 +198,33 @@ void TampilMenu()
                             int g=0;
                             do
                             {
-                                cout <<left <<setw(7) << paket[g].kodepaket 
-                                    <<left <<setw(20) <<paket[g].namapaket ;
+                                cout <<left <<setw(7)  << paket[g].kodepaket 
+                                     <<left <<setw(20) <<paket[g].namapaket ;
                                 
                                 cout << "\n Harga paket :"
-                                    <<left  <<setw(3)  <<"Rp"
-                                    <<left  <<setw(10)<<paket[g].hargapaket ;
+                                     <<left  <<setw(3)  <<"Rp"
+                                     <<left  <<setw(10) <<paket[g].hargapaket ;
 
                                     cout <<"\n Isi paket :\n";
                                     int f=0;
-                                    do{
+                                    do
+                                    {
                                         int dex = paket[g].isi[f];
 
-                                    cout <<left  <<setw(40) <<menu[dex].nama
-                                        <<left <<setw(3)  <<"Rp"
-                                        <<left  <<setw(10) <<menu[dex].harga<<"\n"; 
+                                     cout <<left  <<setw(40) <<menu[dex].nama
+                                          <<left  <<setw(3)  <<"Rp"
+                                          <<left  <<setw(10) <<menu[dex].harga<<"\n"; 
 
                                     f=f+1;
                                     }while(f < paket[g].jumlahpaket); //total isi paket
+
                                     cout <<"Diskon :"<< paket[g].diskon <<"%";
+
                                 g=g+1;    
                             }while(g < tampilpaket); // total paket
 
                         cout <<"\n"<< string(55, '-') << "\n";
                     }
-                
     }
 
 
@@ -233,12 +232,13 @@ void TampilMenu()
 //===================================fungsi================================================= 
 
 int inputmenu(MENU M[], int n)  // input menu baru
-    { //kamus lokal
+    { 
+      //kamus lokal
         int batas = MAX - tampilmenu; 
 
       //deskrip
         if(batas <=0 || n > batas)                   // cek batas menu 
-        {cout <<"Menu sudah penuh \n"; return 0 ;}
+          {cout <<"Menu sudah penuh \n"; return 0 ;}
 
             int G=0;
             do
@@ -255,7 +255,7 @@ int inputmenu(MENU M[], int n)  // input menu baru
                     cin  >>M[tampilmenu].harga;
                 cout<<"\n";
                 tampilmenu=tampilmenu +1;  // nominal tampilmenu bertambah
-            G=G+1;
+             G=G+1;
             }while(G < n ); 
         
         cout << "\n PENAMBAHAN MENU BERHASIL \n";
@@ -267,37 +267,40 @@ int hapusmenu(MENU M[], int n) // menghapus salah satu menu di array dan memajuk
       //kamus lokal
         string cari; 
         int hapus=-1;
-
+    
       //deskripsi
         cout <<"Masukan data yang mau di hapus (kode) :";  //penginputan apa yang mau di cari
-            cin  >> cari;
+             cin  >> cari;
 
-            int i=0;
-            do
-            {
-                if(M[i].kode == cari)
-                    {
-                    hapus = i; //menghapus kode,nama,harga
-                    break;
-                    }
-            i=i+1;
-            }while(i < n);
+        int f=0;
+      
+                int i=0;
+                do
+                {
+                    if(M[i].kode == cari)
+                        {
+                        hapus = i; //menghapus kode,nama,harga
+                        break;
+                        }
+                i=i+1;
+                }while(i < n);
 
-        if(hapus == -1)
-            { 
-                cout <<"\nData tidak di temukan\n"; return n; 
-            } //jika data yang di cari tidak di temukan 
+            if(hapus == -1)
+                { 
+                    cout <<"\nData tidak di temukan\n"; return n; 
+                } //jika data yang di cari tidak di temukan 
 
             int J=hapus;
-            do
-            {
-                M[J]=M[J+1];  // menggeser data array ke sebelahnya 
-            
-            J=J+1;    
-            }while(J < n-1);
+                do
+                {
+                    M[J]=M[J+1];  // menggeser data array ke sebelahnya 
+                
+                J=J+1;    
+                }while(J < n-1);
 
-        n=n-1; // jumlah array berkurang 
-        tampilmenu=n;
+            n=n-1; // jumlah array berkurang 
+            tampilmenu=n;
+        
         return n;
     }
 
@@ -306,13 +309,15 @@ int carikode(MENU M[],int n, string kode)
         int p=0;
         do
         {
-            if(M[p].kode == kode){
-            return p;}
+            if(M[p].kode == kode)
+            {
+            return p;
+            }
 
             p=p+1;    
         }while(p < n);
 
-    return -1;
+     return -1;
     }
 
 int kasir(MENU M[], int n)
@@ -338,7 +343,7 @@ int kasir(MENU M[], int n)
                         total += menu[nominal].harga;
 
                         cout <<"\n+ "<<menu[nominal].nama
-                            <<": Rp "<<menu[nominal].harga;
+                             <<": Rp "<<menu[nominal].harga;
                     }
                 else
                     {
@@ -371,35 +376,39 @@ int inputpaket( PAKET P[])
 
       //penginputan kode dan nama paket
         cout <<"Masukan kode paket :" ;
-            cin >>paket[tampilpaket].kodepaket; 
+            cin >>paket[tampilpaket].kodepaket;
+
         cin.ignore();
         cout <<"\nMasukan Nama paket :" ;
             getline(cin,paket[tampilpaket].namapaket);
 
         cout << "\n========== Menu ===========\n";
-            TampilMenu();
+            TampilMenu();  // tampil menu
+        
+        cout <<"\n==============================\n";
 
       //penginputan paket
         int w=0;
         int total=0;
         int potongan ; 
         do
-        {
+        {   
+            if(w == 0)
+                    {
+                        cout << "Paket harus berisi minimal 1 menu!\n";
+                        return tampilpaket;
+                    }
+                    
             cout <<"Masukan kode : (0 untuk akhiri pesanan)";
                 cin >> kode;
 
             if(kode =="0")
             {   
-                if(w == 0)
-                {
-                    cout << "Paket harus berisi minimal 1 menu!\n";
-                    return tampilpaket;
-                }
-
                  do
                  {
                     cout <<"Mau kasih diskon berapa : (0 ~50%)";
                         cin >>P[tampilpaket].diskon;
+
                             if(P[tampilpaket].diskon < 0 || P[tampilpaket].diskon > 50)
                                 {
                                 cout <<"diskon terlalu banyak, dimohon untuk di kurangi";  
@@ -413,19 +422,19 @@ int inputpaket( PAKET P[])
                 break;
             }
 
-           int nominal=carikode(menu,tampilmenu,kode) ;
+        int nominal=carikode(menu,tampilmenu,kode) ;  // memakai fungsi kode 
             if(nominal != -1)
                 {   
                     if(w < MAX_isi)
-                      {
-                        P[tampilpaket].isi[w]= nominal;
-                        total += menu[nominal].harga;
-                        w=w+1;
-                      }
+                        {
+                            P[tampilpaket].isi[w]= nominal;
+                            total += menu[nominal].harga;
+                            w=w+1;
+                        }
                     else 
-                    {
-                      cout <<"Isi menu paket sudah penuh\n";  
-                    }
+                        {
+                        cout <<"Isi menu paket sudah penuh\n";  
+                        }
                 }
             else
                 {
