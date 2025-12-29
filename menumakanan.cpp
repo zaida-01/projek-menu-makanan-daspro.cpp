@@ -33,7 +33,8 @@ using namespace std;
     int inputpaket( PAKET P[]);
     int carikode(MENU M[],int n, string kode);
     int hapuspaket(PAKET M[], int n);
-
+    int kasirpaket(PAKET M[], int n);
+    int carikodepaket(PAKET M[],int n, string kode);
     void editmenu(MENU M[], int n);
     void TampilMenu();
     
@@ -66,6 +67,7 @@ int main()
         cout<<"4. kasir\n";
         cout<<"5. input paket\n";
         cout<<"6. Hapus paket\n";
+        cout<<"7. kasir paket\n";
         cout<<"0. keluar\n";
         cout <<"Pilihan :";
             cin >>pilihan; 
@@ -105,6 +107,11 @@ int main()
             {
                 hapusmenupaket=hapuspaket(paket,tampilpaket);
                 cout<<hapusmenupaket;
+            }
+            else if(pilihan == 7)
+            {
+                kasirpaket(paket, tampilpaket);
+
             }
     }while(pilihan != 0); //mengakhiri program pilihan
 
@@ -320,6 +327,22 @@ int carikode(MENU M[],int n, string kode)
      return -1;
     }
 
+int carikodepaket(PAKET M[],int n, string kode)
+    {
+        int p=0;
+        do
+        {
+            if(M[p].kodepaket == kode)
+            {
+            return p;
+            }
+
+            p=p+1;    
+        }while(p < n);
+
+     return -1;
+    }
+
 int kasir(MENU M[], int n)
     {
       //kamus
@@ -340,10 +363,10 @@ int kasir(MENU M[], int n)
 
                 if(nominal != -1)
                     {   
-                        total += menu[nominal].harga;
+                        total += M[nominal].harga;
 
-                        cout <<"\n+ "<<menu[nominal].nama
-                             <<": Rp "<<menu[nominal].harga;
+                        cout <<"\n+ "<<M[nominal].nama
+                             <<": Rp "<<M[nominal].harga;
                     }
                 else
                     {
@@ -393,7 +416,7 @@ int inputpaket( PAKET P[])
         int potongan ; 
         do
         {   
-            if(w == 0)
+            if(tampilmenu == 0)
                     {
                         cout << "Paket harus berisi minimal 1 menu!\n";
                         return tampilpaket;
@@ -450,7 +473,7 @@ int inputpaket( PAKET P[])
         return tampilpaket;
     }
 
-    int hapuspaket(PAKET M[], int n) // menghapus salah satu paket  di array dan memajukan daftar menu bawahnya  
+int hapuspaket(PAKET M[], int n) // menghapus salah satu paket  di array dan memajukan daftar menu bawahnya  
     {
         //kamus lokal
         string cari; 
@@ -493,4 +516,41 @@ int inputpaket( PAKET P[])
         n=n-1; // jumlah array berkurang 
         tampilpaket=n;
         return n;
+    }
+int kasirpaket(PAKET M[], int n)
+    {
+      //kamus
+        string kode;
+        int nominal,total=0;
+
+      //deskripsi
+            int k=0;
+            do
+            {
+                cout <<"\nMasukan kode : (0 untuk akhiri pesanan)";
+                    cin >> kode;
+
+                if(kode =="0")
+                {break;}
+
+                nominal=carikodepaket(M,n,kode);
+
+                if(nominal != -1)
+                    {   
+                        total += M[nominal].hargapaket;
+
+                        cout <<"\n+ "<<M[nominal].namapaket
+                             <<": Rp "<<M[nominal].hargapaket;
+                    }
+                else
+                    {
+                    cout <<"kode tidak ditemukan, pesan diabaikan";
+                    }
+
+            }while(true);
+
+cout << "\n========================\n";
+cout << "Total pesanan : Rp " << total << endl;
+
+        return total;
     }
