@@ -261,7 +261,7 @@ int inputmenu(MENU M[], int n)  // input menu baru
                     cin.ignore();
                     getline(cin, M[tampilmenu].nama);
 
-                cout <<"Masukan harga :" ; // masukan harga
+                cout <<"Masukan harga        :" ; // masukan harga
                     cin  >>M[tampilmenu].harga;
                 cout<<"\n";
                 tampilmenu=tampilmenu +1;  // nominal tampilmenu bertambah
